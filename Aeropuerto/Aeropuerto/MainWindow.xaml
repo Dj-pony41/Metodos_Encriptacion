@@ -1,0 +1,132 @@
+﻿<Window x:Class="Aeropuerto.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aeropuerto"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="700" Background="#FEF6E4">
+
+    <Grid x:Name="MainGrid">
+
+        
+
+        <!-- Nueva sección para manejo de la clave y visualización de datos -->
+        <Label Content="Ingrese la clave de encriptación:" 
+               HorizontalAlignment="Left" 
+               Margin="10,60,0,0" 
+               VerticalAlignment="Top" Foreground="#001858"/>
+
+        <TextBox x:Name="KeyTextBox" 
+                 HorizontalAlignment="Left" 
+                 Margin="10,85,0,0" 
+                 VerticalAlignment="Top" 
+                 Width="300" Height="20" Background="#f3d2c1" Foreground="#001858" BorderBrush="#001858" BorderThickness="2px"/>
+
+        <Button Content="Verificar Key" 
+                Click="VerifyKeyButton_Click" 
+                HorizontalAlignment="Left" 
+                Margin="320,85,0,0" 
+                VerticalAlignment="Top" Background="#f582ae" Foreground="#001858" BorderBrush="#001858" BorderThickness="2px"/>
+
+        <Label Content="Empleados:" 
+               HorizontalAlignment="Left" 
+               Margin="10,130,0,0" 
+               VerticalAlignment="Top" Foreground="#001858"/>
+
+        <ComboBox x:Name="EmployeesComboBox" 
+                  HorizontalAlignment="Left" 
+                  Margin="10,155,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="300" 
+                  SelectionChanged="EmployeesComboBox_SelectionChanged"  Foreground="#001858" BorderBrush="#001858" BorderThickness="2px"/>
+
+        <DataGrid x:Name="EmployeeDataGrid"
+          HorizontalAlignment="Left"
+          Margin="10,200,0,0"
+          VerticalAlignment="Top"
+          Height="200"
+          Width="650"
+          AutoGenerateColumns="False" Background="#f3d2c1" Foreground="#001858" BorderBrush="#001858" BorderThickness="2px">
+
+            <DataGrid.Columns>
+                <!-- Fecha -->
+                <DataGridTextColumn Header="Fecha" 
+                            Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy}}" 
+                            Width="*" />
+
+                <!-- Entrada AM -->
+                <DataGridTextColumn Header="Entrada AM" 
+                            Binding="{Binding EntradaAM}" 
+                            Width="*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" >
+                            <Style.Triggers>
+                                <!-- Pinta de rojo si IsEntradaAMOutOfRange == True -->
+                                <DataTrigger Binding="{Binding IsEntradaAMOutOfRange}" Value="True">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <!-- Salida AM -->
+                <DataGridTextColumn Header="Salida AM" 
+                            Binding="{Binding SalidaAM}" 
+                            Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <!-- Pinta de rojo si IsSalidaAMOutOfRange == True -->
+                                <DataTrigger Binding="{Binding IsSalidaAMOutOfRange}" Value="True">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <!-- Entrada PM -->
+                <DataGridTextColumn Header="Entrada PM" 
+                            Binding="{Binding EntradaPM}" 
+                            Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <!-- Pinta de rojo si IsEntradaPMOutOfRange == True -->
+                                <DataTrigger Binding="{Binding IsEntradaPMOutOfRange}" Value="True">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <!-- Salida PM -->
+                <DataGridTextColumn Header="Salida PM" 
+                            Binding="{Binding SalidaPM}" 
+                            Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <!-- Pinta de rojo si IsSalidaPMOutOfRange == True -->
+                                <DataTrigger Binding="{Binding IsSalidaPMOutOfRange}" Value="True">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Generar Reporte"
+        Click="GenerateConsolidatedReport_Click"
+        HorizontalAlignment="Left"
+        Margin="10,33,0,0"
+        VerticalAlignment="Top" Background="#8bd3dd" Foreground="#001858" BorderBrush="#001858" BorderThickness="2px"/>
+
+
+    </Grid>
+</Window>
